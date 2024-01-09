@@ -17,8 +17,13 @@ function addOneDay(dateString) {
   const [day, month, year] = dateString.split("/").map(Number);
   const currentDate = new Date(year, month - 1, day); // Month is 0-based in JavaScript Date
   currentDate.setDate(currentDate.getDate() + 1);
-  const newDate = currentDate.toLocaleDateString("en-GB"); // Adjust the locale as needed
-  return newDate;
+
+  const newDay = currentDate.getDate();
+  const newMonth = currentDate.getMonth() + 1; // Month is 0-based, so add 1
+
+  const formattedDate = `${newDay}/${newMonth}/${currentDate.getFullYear()}`;
+
+  return formattedDate;
 }
 
 function randomSort() {
@@ -92,12 +97,11 @@ app.get("/newPerms", async function (req, res, next) {
 
   // add game numbers to each new game, use the currentGameNumber as the start and increment, and same with date
   for (let i = 0; i < randomlySortedPerms.length; i++) {
-
     // add one day to the date and reassing the date var
     date = addOneDay(date);
-
+    console.log(date);
     randomlySortedPerms[i].number = currentGameNumber++;
-    randomlySortedPerms[i].date = date
+    randomlySortedPerms[i].date = date;
   }
 
   const newPerms = [...currentPerms, ...randomlySortedPerms];
