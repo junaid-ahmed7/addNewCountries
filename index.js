@@ -14,7 +14,7 @@ app.listen(PORT, (error) => {
 
 app.get("/wheretakenNew", async function (req, res, next) {
     newWhereTaken.forEach(entry => {
-
+        console.log(entry.country)
         // Find the corresponding country in the whereTakenCurrent array
         let countryEntry = whereTakenCurrent.find(country => country.name === entry.country);
 
