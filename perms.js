@@ -4,6 +4,9 @@ const whereTakenCurrent = require("./whereTakenCurrent");
 const app = express();
 const PORT = 3007;
 
+//THIS FILE MAKES PERMS FOR ALL THE COUNTRIES. CANT BE USED RIGHT NOW DUE TO PRIOR MISSING IMAGES/ROUNDS FROM OLD COUNTRIES
+// MAKING NEW FILE THAT WILL ONLY MAKE NEW PERMS FOR NEW SHEET GIVEN BY PM
+
 app.listen(PORT, (error) => {
   if (!error)
     console.log(
