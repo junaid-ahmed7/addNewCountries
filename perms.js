@@ -65,9 +65,6 @@ app.get("/newPerms", async function (req, res, next) {
     while (
       gamesForEachCountry[country.name].timesPlayed < country.game.length
     ) {
-      // add one day to the date and reassing the date var
-      date = addOneDay(date);
-
       // creating new game (perm)
       const newGame = {};
       newGame.country = country.name;
@@ -82,9 +79,6 @@ app.get("/newPerms", async function (req, res, next) {
         }
       }
 
-    //   newGame.number = currentGameNumber++;
-      newGame.date = date;
-
       // new game has been made, so for the purposes of this algorithm, this country has been played one more time, update counter
       gamesForEachCountry[country.name].timesPlayed++;
 
@@ -96,11 +90,17 @@ app.get("/newPerms", async function (req, res, next) {
   // Use the custom sorting function to randomly sort the array
   const randomlySortedPerms = newPossiblePerms.sort(randomSort);
 
-  // add game numbers to each new game, use the currentGameNumber as the start and increment
-  for (let i = 0; i < randomlySortedPerms.length; i++){
-    randomlySortedPerms[i].number = currentGameNumber++;
-  };
+  // add game numbers to each new game, use the currentGameNumber as the start and increment, and same with date
+  for (let i = 0; i < randomlySortedPerms.length; i++) {
 
+    // add one day to the date and reassing the date var
+    date = addOneDay(date);
+
+    randomlySortedPerms[i].number = currentGameNumber++;
+    randomlySortedPerms[i].date = date
+  }
+
+  const newPerms = [...currentPerms, ...randomlySortedPerms];
   // send out a final array of all previous games spread with the new games after. this is the new perms.ts
-  res.send([...currentPerms, ...randomlySortedPerms]);
+  res.send(newPerms);
 });
